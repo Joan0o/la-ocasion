@@ -1,16 +1,37 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const NodemonPlugin = require("nodemon-webpack-plugin");
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const path = require('path');
+
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: "./src/index.html", 
+  template: "./src/index.html",
   filename: "index.html"
 });
+
 module.exports = {
+  resolve: {
+    alias: {
+      bulma$: path.resolve(__dirname, 'node_modules/bulma/css/bulma.css')
+    }
+  },
+  mode: 'development',
   entry: "./src/index.js",
-  output: { // NEW
+  output: {
     path: path.join(__dirname, 'dist'),
     filename: "[name].js"
-  }, // NEW Ends
-  plugins: [htmlPlugin],
+  },
+  plugins: [
+    htmlPlugin,
+    new NodemonPlugin({
+      script: './server.js',
+    }),
+    new LiveReloadPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/mystyles.css'
+    })
+  ],
   module: {
     rules: [
       {
@@ -19,6 +40,22 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+                // options...
+              }
+            }
+          ]
       }
     ]
   }
