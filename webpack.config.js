@@ -11,25 +11,24 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-  resolve: {
-    alias: {
-      bulma$: path.resolve(__dirname, 'node_modules/bulma/css/bulma.css')
-    }
-  },
   mode: 'development',
   entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: "[name].js"
+    path: path.resolve('./dist'),
+    filename: 'server.js',
   },
   plugins: [
     htmlPlugin,
     new NodemonPlugin({
+      watch: path.resolve('./'),
       script: './server.js',
     }),
     new LiveReloadPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/mystyles.css'
+      filename: 'css/styles.css'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/notifications.css'
     })
   ],
   module: {
@@ -42,20 +41,25 @@ module.exports = {
         }
       },
       {
+        test: /\.css$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.scss$/,
         use: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader'
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                // options...
-              }
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              // options...
             }
-          ]
+          }
+        ]
       }
     ]
   }

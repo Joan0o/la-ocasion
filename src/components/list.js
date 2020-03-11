@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './card.js';
+import ItemBox from './item-box.js';
 
 class List extends React.Component {
     constructor(props) {
@@ -30,12 +30,12 @@ class List extends React.Component {
                 <input type="text" className="input" placeholder="Search..." onChange={this.handleChange} />
                 <div className="cards">
                     <div className="container">
-                        <div className="colums is-multiline">
-                            <ul>
-                                {filteredList.map(item => (
-                                    <Card item={item} className="column is-quarter"></Card>
-                                ))}
-                            </ul>
+                        <div className="columns is-multiline is-mobile">
+                            {filteredList.map(item => (
+                                <div className="column is-6">
+                                    <ItemBox item={item}>></ItemBox>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

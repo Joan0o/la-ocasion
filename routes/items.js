@@ -22,8 +22,9 @@ router.get('/:id', getItem, (req, res) => {
 router.post('/', async (req, res) => {
     const item = new Item({
         name: req.body.name,
-        brand: req.body.brand,
-        price: req.body.price
+        brand: req.body.brand ? req.body.brand : '-',
+        price: req.body.price,
+        img: req.body.img ? req.body.img : '-',
     })
 
     try {
@@ -43,9 +44,6 @@ router.patch('/:id', getItem, async (req, res) => {
 
     if (req.body.price !== null)
         res.item.price = req.body.price
-
-    if (req.body.brand !== null)
-        res.item.brand = req.body.brand
 
     try {
         const newItem = await res.item.save()
