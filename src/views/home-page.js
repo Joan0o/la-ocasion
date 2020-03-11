@@ -57,7 +57,15 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/items')
+        fetch('https://us-central1-papeleria-ba86e.cloudfunctions.net/api/items',
+            {
+                method: 'GET',
+                headers: {
+                    'Access-Control-Allow-Origin': "*",
+                    'content-type': 'application/json; charset=utf-8',
+                    'Access-Control-Allow-Credentials': 'true'
+                }
+            })
             .then(res => res.json())
             .then((data) => {
                 this.setState({ list: data.map(d => d.name) })

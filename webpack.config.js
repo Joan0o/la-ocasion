@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const NodemonPlugin = require("nodemon-webpack-plugin");
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -19,10 +18,6 @@ module.exports = {
   },
   plugins: [
     htmlPlugin,
-    new NodemonPlugin({
-      watch: path.resolve('./'),
-      script: './server.js',
-    }),
     new LiveReloadPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/styles.css'

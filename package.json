@@ -4,8 +4,7 @@
   "description": "none",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "dev": "webpack --watch",
+    "dev": "webpack --watch && nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "joan",
@@ -15,6 +14,8 @@
     "bulma": "^0.8.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "firebase": "^7.10.0",
+    "firebase-admin": "^8.9.2",
     "mongoose": "^5.9.3",
     "nodemon": "^2.0.2",
     "react": "^16.13.0",
