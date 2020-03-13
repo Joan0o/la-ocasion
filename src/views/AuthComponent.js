@@ -4,11 +4,10 @@ import { useForm } from 'react-hook-form'
 export default function form(props) {
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => {
-        console.log(JSON.stringify(data))
-        fetch('https://us-central1-papeleria-ba86e.cloudfunctions.net/api/items',
+        fetch('https://us-central1-papeleria-ba86e.cloudfunctions.net/api/login',
             {
                 method: 'POST',
-                body: data,
+                body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -25,48 +24,36 @@ export default function form(props) {
     return (
         <div className="card">
             <div className="card-header">
-                <p className="card-header-title">Registrar un producto</p>
+                <p className="card-header-title">Iniciar Sesion</p>
             </div>
             <div className="card-content">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="field">
-                        <label className="label">Nombre *</label>
+                        <label className="label">Correo</label>
                         <div className="control">
                             <input
-                                name="name"
+                                name="email"
                                 className="input"
-                                type="text"
+                                type="email"
                                 placeholder="Nombre del producto"
                                 ref={register({ required: true })}
                             />
                         </div>
-                        {errors.name && <span className="help is-danger">Este campo es obligatorio</span>}
+                        {errors.email && <span className="help is-danger">Este campo es obligatorio</span>}
                     </div>
                     <div className="field">
-                        <label className="label">Precio *</label>
+                        <label className="label">Contraseña</label>
                         <div className="control">
                             <input
-                                name="price"
+                                name="pass"
                                 className="input"
-                                type="number"
-                                placeholder="Text input"
-                                ref={register({ required: true })}
-                                defaultValue="" />
+                                type="password"
+                                placeholder="Contraseña"
+                                ref={register({ required: true, min: 5 })}/>
                         </div>
-                        {errors.price && <span className="help is-danger">Este campo es obligatorio</span>}
+                        {errors.pass && <span className="help is-danger">Este campo es obligatorio</span>}
                     </div>
-                    <div className="field">
-                        <label className="label">Marca</label>
-                        <div className="control">
-                            <input
-                                name="brand"
-                                className="input"
-                                type="text"
-                                placeholder="Text input"
-                                ref={register()}
-                                placeholder="Marca del producto" />
-                        </div>
-                    </div>
+                    
                     <div className="field is-grouped">
                         <div className="control">
                             <button className="button is-link">Guardar</button>

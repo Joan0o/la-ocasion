@@ -22,7 +22,7 @@ class List extends React.Component {
 
     render() {
         const filteredList = this.props.items.filter(
-            item => item.toLowerCase().includes(this.state.filterText)
+            item => item.name.toLowerCase().includes(this.state.filterText)
         )
 
         return (

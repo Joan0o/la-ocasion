@@ -43,6 +43,7 @@ exports.signup = (req, res) => {
             console.log(err)
             return res.status(500).json({ error: err.code })
         })
+        return true;
 }
 exports.login = (req, res) => {
     const user = {

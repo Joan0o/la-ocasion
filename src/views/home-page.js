@@ -5,6 +5,7 @@ import 'animate.css';
 
 import List from '../components/list.js'
 import NewItem from './new-item.js'
+import AuthComponent from './AuthComponent.js'
 
 
 class HomePage extends React.Component {
@@ -17,8 +18,13 @@ class HomePage extends React.Component {
         }
     }
 
-    toggleModal() {
+    newItemModal() {
         let element = document.getElementById('new-item');
+        element && element.classList.toggle("is-active");
+    }
+
+    authModal() {
+        let element = document.getElementById('auth');
         element && element.classList.toggle("is-active");
     }
 
@@ -57,40 +63,43 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://us-central1-papeleria-ba86e.cloudfunctions.net/api/items',
-            {
-                method: 'GET',
-                headers: {
-                    'Access-Control-Allow-Origin': "*",
-                    'content-type': 'application/json; charset=utf-8',
-                    'Access-Control-Allow-Credentials': 'true'
-                }
-            })
+        fetch('https://us-central1-papeleria-ba86e.cloudfunctions.net/api/items')
             .then(res => res.json())
             .then((data) => {
-                this.setState({ list: data.map(d => d.name) })
+                this.setState({ list: data })
             })
             .catch(console.log)
     }
 
     render() {
         return (
+
             <div className="content">
+                <button class="button is-fullwidth is-danger" onClick={this.authModal}>Iniciar sesión</button>
                 <div className="container">
+                    <div id="auth" className="modal is-active">
+                        <div className="modal-background" onClick={this.authModal}></div>
+                        <div className="modal-content">
+                            <section className="section">
+                                <AuthComponent closeModal={this.authModal}></AuthComponent>
+                            </section>
+                        </div>
+                        <button className="modal-close is-large" aria-label="close" onClick={this.authModal}></button>
+                    </div>
                     <section className="section">
                         <List items={this.state.list} delete={this.removeItem} />
                     </section>
                     <hr />
                     <div id="new-item" className="modal">
-                        <div className="modal-background" onClick={this.toggleModal}></div>
+                        <div className="modal-background" onClick={this.newItemModal}></div>
                         <div className="modal-content">
                             <section className="section">
-                                <NewItem addItem={this.addItem} closeModal={this.toggleModal}></NewItem>
+                                <NewItem addItem={this.addItem} closeModal={this.newItemModal}></NewItem>
                             </section>
                         </div>
-                        <button className="modal-close is-large" aria-label="close" onClick={this.toggleModal}></button>
+                        <button className="modal-close is-large" aria-label="close" onClick={this.newItemModal}></button>
                     </div>
-                    <div id="floating-button" onClick={this.toggleModal}>
+                    <div id="floating-button" onClick={this.newItemModal}>
                         <p className="plus">+</p>
                     </div>
                 </div>
