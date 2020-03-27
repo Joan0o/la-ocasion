@@ -20,7 +20,7 @@ exports.signup = (req, res) => {
             if (doc.exists)
                 return res.status(400).json({ handle: `el handle ya existe` })
             else
-                return firebase.auth().createUserWithEmailAndPassword((newUser.email, newUser.pass))
+                return firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.pass)
         })
         .then(data => {
             userID = data.user.uid;
@@ -43,8 +43,8 @@ exports.signup = (req, res) => {
             console.log(err)
             return res.status(500).json({ error: err.code })
         })
-        return true;
 }
+
 exports.login = (req, res) => {
     const user = {
         email: req.body.email,

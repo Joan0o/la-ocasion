@@ -1,8 +1,8 @@
-const {admin, db} = require('./admin')
+const { admin, db } = require('./admin')
 
 module.exports = (req, res, next) => {
-    if (req.headers.authorization && request.headers.authorization.startsWith('Bearer ')) {
-        idToken = req.header.authorization.split('Bearer ')[1]
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        idToken = req.headers.authorization.split('Bearer ')[1]
     } else {
         return res.status(403).json({ error: "Unauthorized" })
     }
@@ -22,5 +22,4 @@ module.exports = (req, res, next) => {
         .catch((err) => {
             return res.status(500).json({ error: err })
         })
-        return false;
 }
