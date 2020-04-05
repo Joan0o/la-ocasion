@@ -31,9 +31,9 @@ class List extends React.Component {
                 <div className="cards">
                     <div className="container">
                         <div className="columns is-multiline is-mobile">
-                            {filteredList.map(item => (
-                                <div className="column is-6">
-                                    <ItemBox item={item}>></ItemBox>
+                            {filteredList.map((item, index)=> (
+                                <div key={item.id} className="column is-6">
+                                    <ItemBox  item={item}>></ItemBox>
                                 </div>
                             ))}
                         </div>

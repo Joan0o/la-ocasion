@@ -53,20 +53,20 @@ exports.login = (req, res) => {
 
     let errors = {}
 
-    if (isEmpty(user.email)) errors.email = "Must not be empty"
-    if (isEmpty(user.Password)) errors.Password = "Must not be empty"
+    if (!user.email) errors.email = "Must not be empty"
+    if (!user.pass) errors.pass = "Must not be empty"
 
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
     firebase.auth().signInWithEmailAndPassword(user.email, user.pass)
         .then(data => {
-            return data.user.getIdToken();
+            authenticatedUser = data.user.email
+            return data.user.getIdToken()
         })
         .then(token => {
-            return res.json({ token })
+            return res.status(200).json({ token, authenticatedUser });
         })
         .catch(err => {
-            console.log(err)
-            return res.status(500).json({ error: err.code })
+            return res.status(400).json({ err: err.code })
         })
 }

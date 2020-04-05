@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors({origin: true}))
+app.use(cors({ origin: true }))
 
 const { getAllItems, newItem } = require('./handlers/items')
 const { signup, login } = require('./handlers/users')

@@ -5,7 +5,7 @@ exports.getAllItems = (req, res) => {
         .then(data => {
             let items = [];
             data.forEach(doc => {
-                items.push(doc.data())
+                items.push({...doc.data(), id: doc.id})
             })
             return res.json(items);
         })
@@ -22,11 +22,12 @@ exports.newItem = (req, res) => {
 
     db.collection('items')
         .add(newItem)
-        .then(doc => {
-            return res.json({ message: `document ${doc.id} created succesfully` })
+        .then(ref => {
+            console.log(ref)
+            return res.json({...newItem, id: ref.id})
         })
         .catch((err) => {
-            res.status(500).json({ error: 'algo salió mal' })
+            res.status(400).json({ error: 'algo salió mal' })
             console.log(err);
         })
 }

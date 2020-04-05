@@ -26,6 +26,12 @@ module.exports = {
       filename: 'css/notifications.css'
     })
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/'),
+    }
+  },
   module: {
     rules: [
       {
@@ -57,5 +63,11 @@ module.exports = {
         ]
       }
     ]
+  },
+  externals: {
+    // global app config object
+    config: JSON.stringify({
+      apiUrl: 'http://localhost:5001/papeleria-ba86e/us-central1/api'
+    })
   }
 };
