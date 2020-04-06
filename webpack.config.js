@@ -67,7 +67,8 @@ module.exports = {
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://localhost:5001/papeleria-ba86e/us-central1/api'
+      apiUrl: 'https://us-central1-papeleria-61084.cloudfunctions.net/api'
+      //apiUrl: 'http://localhost:5001/papeleria-61084/us-central1/api'
     })
   }
 };

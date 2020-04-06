@@ -16,8 +16,9 @@ const defaultNofitication = {
 
 export default function form(props) {
   const { register, handleSubmit, errors } = useForm();
+  const formButton = document.querySelector("form #login");
+  
   const onSubmit = (data) => {
-    const formButton = document.querySelector("form #login");
     formButton && formButton.classList.toggle("is-loading");
     Items.newItem(data)
       .then((data) => {

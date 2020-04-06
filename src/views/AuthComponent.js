@@ -21,9 +21,9 @@ export default function form(props) {
   let options = {};
 
   const formButton = document.querySelector("form #login");
-  formButton && formButton.classList.toggle("is-loading");
 
   const onSubmit = (data) => {
+    formButton && formButton.classList.toggle("is-loading");
     authenticationService
       .login(JSON.stringify(data))
       .then((res) => {
@@ -102,7 +102,7 @@ export default function form(props) {
               <button
                 className="button is-link is-light"
                 onClick={(e) => {
-                  props.closeModal;
+                  props.closeModal();
                   e.preventDefault();
                 }}
               >
